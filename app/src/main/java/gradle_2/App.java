@@ -6,27 +6,40 @@
 package gradle_2;
 
 import java.io.PrintStream;
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.DefaultParser;
-import org.apache.commons.cli.Option;
-import org.apache.commons.cli.Options;
+
+import org.apache.commons.cli.*;
 import org.apache.commons.lang.WordUtils;
 
+import static java.lang.System.out;
+
 public final class App {
-    public static void main(String[] var0) throws Exception {
-        Option var1 = Option.builder("m").longOpt("message").hasArg().desc("the message to capitalize").build();
-        Options var2 = new Options();
-        var2.addOption(var1);
-        DefaultParser var3 = new DefaultParser();
-        CommandLine var4 = var3.parse(var2, var0);
-        String var5 = var4.getOptionValue("m", "hellllllo ivy!!");
-        System.out.println("standard message : " + var5);
-        PrintStream var10000 = System.out;
-        String var10001 = WordUtils.class.getName();
-        var10000.println("capitalized by " + var10001 + " : " + WordUtils.capitalizeFully(var5));
+
+    String message;
+    public App() {
+
+        message = "hello world!";
     }
 
-    public String getGreeting() {
-        return "hi";
+    public App(String Message) {
+        message = Message;
+    }
+    public String[] UpperCaseOfMessage() {
+        String out1 =  "standard message : " + message;
+        String out2 = "capitalized by " + WordUtils.class.getName() + " : " + WordUtils.capitalizeFully(message);
+        return new String[] {out1, out2};
+    }
+
+    public static void main(String[] Message) {
+        App MessageApp;
+        if (Message.length == 0) {
+            MessageApp = new App();
+        }
+        else {
+            MessageApp = new App(Message[0]);
+        }
+        String[] Result = MessageApp.UpperCaseOfMessage();
+
+        out.println(Result[0]);
+        out.println(Result[1]);
     }
 }
